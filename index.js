@@ -5,6 +5,8 @@ const HIDDEN_CLASS = 'hidden';
 const KUDOSIBLE_SKIP_CLASS = 'kudosible-skip';
 const KUDOS_HIGHLIGHT_CLASS = 'kudosible-highlight';
 
+const INPUT_TAG_NAMES = ['input', 'textarea', 'select', 'option'];
+
 const CARD_SELECTOR = '.card';
 const KUDOSIBLE_ACTIVITIES_SELECTOR = `
   .activity button.js-add-kudo:not(.${KUDOSIBLE_SKIP_CLASS}), 
@@ -73,6 +75,11 @@ function init() {
 
 // keypress event handler
 function handleKeypress(event) {
+  // ignore keypresses in an input field
+  if (INPUT_TAG_NAMES.includes(event.target.tagName.toLowerCase())) {
+      return;
+  }
+
   // break statements missing by design
   // higher cases should execute all actions below them
   // (kudos action should kudos, skip, and focusNext)
