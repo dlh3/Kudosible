@@ -7,7 +7,7 @@ const KUDOS_HIGHLIGHT_CLASS = 'kudosible-highlight';
 
 const INPUT_TAG_NAMES = ['input', 'textarea', 'select', 'option'];
 
-const CARD_SELECTOR = '.card';
+const FEED_ENTRY_SELECTOR = '.feed-entry';
 const KUDOSIBLE_ACTIVITIES_SELECTOR = `
   .activity button.js-add-kudo:not(.${KUDOSIBLE_SKIP_CLASS}), 
   .group-activity button.js-add-kudo:not(.${KUDOSIBLE_SKIP_CLASS})`;
@@ -113,7 +113,7 @@ function skip(skipIt) {
 
 // clear prior card highlight
 function clearCardHighlight(clearIt) {
-  clearIt && clearIt.closest(CARD_SELECTOR).classList.remove(KUDOS_HIGHLIGHT_CLASS);
+  clearIt && clearIt.closest(FEED_ENTRY_SELECTOR).classList.remove(KUDOS_HIGHLIGHT_CLASS);
 }
 
 // scroll the next kudos button into view
@@ -131,7 +131,7 @@ function focusNext() {
     }
 
     it.scrollIntoView(false);
-    it.closest(CARD_SELECTOR).classList.add(KUDOS_HIGHLIGHT_CLASS);
+    it.closest(FEED_ENTRY_SELECTOR).classList.add(KUDOS_HIGHLIGHT_CLASS);
   }
 }
 
