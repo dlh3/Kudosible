@@ -68,9 +68,8 @@ function init() {
   kudosibleBox.addEventListener('click', focusNext);
   document.addEventListener('keypress', handleKeypress);
 
-  // focus on the first kudosible activity
-  // also refreshes the kudos box
-  focusNext();
+  const kudosibleActivities = document.querySelectorAll(KUDOSIBLE_ACTIVITIES_SELECTOR);
+  updateKudosBox(kudosibleActivities.length);
 }
 
 // keypress event handler
@@ -93,8 +92,6 @@ function handleKeypress(event) {
     case 'N':
     case 'n':
       focusNext();
-    default:
-      break;
   }
 }
 
@@ -111,11 +108,6 @@ function skip(skipIt) {
   }
 }
 
-// clear prior card highlight
-function clearCardHighlight(clearIt) {
-  clearIt && clearIt.closest(FEED_ENTRY_SELECTOR).classList.remove(KUDOS_HIGHLIGHT_CLASS);
-}
-
 // scroll the next kudos button into view
 function focusNext() {
   clearCardHighlight(it);
@@ -130,9 +122,15 @@ function focusNext() {
       return;
     }
 
-    it.scrollIntoView(false);
-    it.closest(FEED_ENTRY_SELECTOR).classList.add(KUDOS_HIGHLIGHT_CLASS);
+    const feedEntry = it.closest(FEED_ENTRY_SELECTOR);
+    feedEntry.classList.add(KUDOS_HIGHLIGHT_CLASS);
+    window.scrollTo(0, getScrollPosition(feedEntry));
   }
+}
+
+// clear prior card highlight
+function clearCardHighlight(clearIt) {
+  clearIt && clearIt.closest(FEED_ENTRY_SELECTOR).classList.remove(KUDOS_HIGHLIGHT_CLASS);
 }
 
 // update the kudosible box
@@ -144,6 +142,17 @@ function updateKudosBox(numBtns) {
     kudosibleBox.classList.remove(HIDDEN_CLASS);
   } else {
     kudosibleBox.classList.add(HIDDEN_CLASS);
+  }
+}
+
+// determine scroll position this way, to account for fixed header bar
+function getScrollPosition(element) {
+  if (!element) {
+    return 0;
+  } else if (element.classList.contains('card')) {
+    return element.offsetTop;
+  } else {
+    return element.offsetTop + getScrollPosition(element.offsetParent);
   }
 }
 
