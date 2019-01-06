@@ -28,6 +28,12 @@ const STYLE_INNER_HTML = `
       margin: 0 auto
   }
 
+  #${KUDOSIBLE_ID} a {
+      margin: 0 3px;
+      font-weight: bold;
+      color: #bef;
+  }
+
   #${KUDOSIBLE_ID}.${HIDDEN_CLASS} {
       display: none !important;
       visibility: hidden !important
@@ -44,7 +50,10 @@ const STYLE_INNER_HTML = `
 const BUTTON_INNER_HTML = `
   <div>
     <span id="${KUDOSIBLE_COUNT_ID}"></span> kudosible activities
-    <br />(N)ext (K)udos (S)kip
+    <br />
+    <a href="#next" onclick="triggerKeypress('N')">(N)ext</a> 
+    <a href="#kudos" onclick="triggerKeypress('K')">(K)udos</a> 
+    <a href="#skip" onclick="triggerKeypress('S')">(S)kip</a> 
   </div>`;
 
 let kudosibleBox;
@@ -65,17 +74,23 @@ function init() {
   document.body.prepend(kudosibleBox);
 
   // add event listeners
-  kudosibleBox.addEventListener('click', focusNext);
   document.addEventListener('keypress', handleKeypress);
 
   const kudosibleActivities = document.querySelectorAll(KUDOSIBLE_ACTIVITIES_SELECTOR);
   updateKudosBox(kudosibleActivities.length);
 }
 
+// simulate keypress
+function triggerKeypress(letter) {
+  const keyboardEvent = new KeyboardEvent('keypress', { key: letter });
+  document.dispatchEvent(keyboardEvent);
+  return false;
+}
+
 // keypress event handler
 function handleKeypress(event) {
   // ignore keypresses in an input field
-  if (INPUT_TAG_NAMES.includes(event.target.tagName.toLowerCase())) {
+  if (event.target.tagName && INPUT_TAG_NAMES.includes(event.target.tagName.toLowerCase())) {
       return;
   }
 
