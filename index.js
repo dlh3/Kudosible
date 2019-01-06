@@ -68,9 +68,8 @@ function init() {
   kudosibleBox.addEventListener('click', focusNext);
   document.addEventListener('keypress', handleKeypress);
 
-  // focus on the first kudosible activity
-  // also refreshes the kudos box
-  focusNext();
+  const kudosibleActivities = document.querySelectorAll(KUDOSIBLE_ACTIVITIES_SELECTOR);
+  updateKudosBox(kudosibleActivities.length);
 }
 
 // keypress event handler
