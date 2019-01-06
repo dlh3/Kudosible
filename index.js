@@ -1,5 +1,6 @@
 const KUDOSIBLE_ID = 'kudosible';
 const KUDOSIBLE_COUNT_ID = 'kudosibleCount';
+const KUDOSIBLE_COUNT_SUFFIX_ID = 'kudosibleCountSuffix';
 
 const HIDDEN_CLASS = 'hidden';
 const KUDOSIBLE_SKIP_CLASS = 'kudosible-skip';
@@ -49,8 +50,7 @@ const STYLE_INNER_HTML = `
   }`;
 const BUTTON_INNER_HTML = `
   <div>
-    <span id="${KUDOSIBLE_COUNT_ID}"></span> kudosible activities
-    <br />
+    <span id="${KUDOSIBLE_COUNT_ID}"></span> Kudosible <span id="${KUDOSIBLE_COUNT_SUFFIX_ID}"></span> 
     <a href="#next" onclick="triggerKeypress('N')">(N)ext</a> 
     <a href="#kudos" onclick="triggerKeypress('K')">(K)udos</a> 
     <a href="#skip" onclick="triggerKeypress('S')">(S)kip</a> 
@@ -152,6 +152,9 @@ function clearCardHighlight(clearIt) {
 function updateKudosBox(numBtns) {
   const countField = document.getElementById(KUDOSIBLE_COUNT_ID);
   countField.innerHTML = numBtns;
+
+  const countSuffixField = document.getElementById(KUDOSIBLE_COUNT_SUFFIX_ID);
+  countSuffixField.innerText = numBtns === 1 ? 'activity' : 'activities';
 
   if (numBtns) {
     kudosibleBox.classList.remove(HIDDEN_CLASS);
