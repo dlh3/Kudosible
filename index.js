@@ -124,7 +124,7 @@ function focusNext() {
 
     const feedEntry = it.closest(FEED_ENTRY_SELECTOR);
     feedEntry.classList.add(KUDOS_HIGHLIGHT_CLASS);
-    window.scrollTo(0, getScrollPosition(feedEntry));
+    scrollIntoView(feedEntry);
   }
 }
 
@@ -145,14 +145,13 @@ function updateKudosBox(numBtns) {
   }
 }
 
-// determine scroll position this way, to account for fixed header bar
-function getScrollPosition(element) {
-  if (!element) {
-    return 0;
-  } else if (element.classList.contains('card')) {
-    return element.offsetTop;
+function scrollIntoView(feedEntry) {
+  if (feedEntry.classList.contains('card')) {
+    // the dashboard (with card view) must account for fixed header bar
+    window.scrollTo(0, feedEntry.offsetTop);
   } else {
-    return element.offsetTop + getScrollPosition(element.offsetParent);
+    // but this works for club/athlete feeds
+    feedEntry.scrollIntoView(true);
   }
 }
 
