@@ -130,8 +130,9 @@ function focusNext() {
       return;
     }
 
-    it.scrollIntoView(false);
-    it.closest(FEED_ENTRY_SELECTOR).classList.add(KUDOS_HIGHLIGHT_CLASS);
+    const feedEntry = it.closest(FEED_ENTRY_SELECTOR);
+    feedEntry.classList.add(KUDOS_HIGHLIGHT_CLASS);
+    window.scrollTo(0, getScrollPosition(feedEntry));
   }
 }
 
@@ -144,6 +145,17 @@ function updateKudosBox(numBtns) {
     kudosibleBox.classList.remove(HIDDEN_CLASS);
   } else {
     kudosibleBox.classList.add(HIDDEN_CLASS);
+  }
+}
+
+// determine scroll position this way, to account for fixed header bar
+function getScrollPosition(element) {
+  if (!element) {
+    return 0;
+  } else if (element.classList.contains('card')) {
+    return element.offsetTop;
+  } else {
+    return element.offsetTop + getScrollPosition(element.offsetParent);
   }
 }
 
