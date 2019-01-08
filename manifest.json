@@ -3,7 +3,7 @@
   "name": "Kudosible – Hotkeys for Strava Kudos",
   "short_name": "Kudosible",
   "description": "A chrome extension which adds hotkey support for navigating activities and giving kudos on Strava.",
-  "version": "0.60",
+  "version": "0.61",
   "author": "Dave Hughes",
   "homepage_url": "https://github.com/dlh3/Kudosible",
   "update_url": "https://clients2.google.com/service/update2/crx",
