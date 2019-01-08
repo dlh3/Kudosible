@@ -73,11 +73,9 @@ function init() {
   kudosibleBox.className = 'btn btn-sm btn-primary ' + HIDDEN_CLASS;
   document.body.prepend(kudosibleBox);
 
-  // add event listeners
+  // add event listeners and refresh timer
   document.addEventListener('keypress', handleKeypress);
-
-  const kudosibleActivities = document.querySelectorAll(KUDOSIBLE_ACTIVITIES_SELECTOR);
-  updateKudosBox(kudosibleActivities.length);
+  setInterval(updateKudosBox, 500);
 }
 
 // simulate keypress
@@ -148,8 +146,8 @@ function clearCardHighlight(clearIt) {
   clearIt && clearIt.closest(FEED_ENTRY_SELECTOR).classList.remove(KUDOS_HIGHLIGHT_CLASS);
 }
 
-// update the kudosible box
-function updateKudosBox(numBtns) {
+// update the kudosible box, accept numBtns if passed, otherwise, query to find it
+function updateKudosBox(numBtns = document.querySelectorAll(KUDOSIBLE_ACTIVITIES_SELECTOR).length) {
   const countField = document.getElementById(KUDOSIBLE_COUNT_ID);
   countField.innerHTML = numBtns;
 
